@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiLibros.Models
 {
@@ -8,6 +9,7 @@ namespace ApiLibros.Models
     {
         public int IdLibro { get; set; }
 
+        [Required]
         public string? Codigo { get; set; }
 
         public string? Ubicacion { get; set; }

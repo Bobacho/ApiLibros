@@ -1,4 +1,4 @@
-FROM bitnami/dotnet-sdk:8.0.303
+FROM ubuntu/dotnet-aspnet:8.0-24.04_stable
 
 RUN mkdir -p /home/app
 
@@ -8,6 +8,8 @@ WORKDIR /home/app
 
 RUN dotnet restore
 
-EXPOSE 5184
+RUN dotnet publish -c Release -o out
 
-CMD ["dotnet","run","environment=Production"]
+EXPOSE 5000
+
+CMD ["dotnet", "out/ApiLibros.dll"]

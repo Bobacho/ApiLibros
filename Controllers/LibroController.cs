@@ -9,20 +9,30 @@ namespace ApiLibros.Controllers
     public class LibroController : Controller
     {
         private readonly LibroRepository _repository;
+        private readonly IHttpContextAccessor _contextAccesor;
 
-        public LibroController(LibroRepository repository)
+        public LibroController(IHttpContextAccessor contextAccesor, LibroRepository repository)
         {
+            _contextAccesor = contextAccesor;
             _repository = repository;
         }
         // GET: LibroController
-        [HttpGet("{id}")]
-        public IActionResult GetLibroById(int id)
+        [HttpGet("/Api/Libro/search-id")]
+        public IActionResult GetLibroById([FromQuery] int id)
         {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere Authenticacion");
+            }
             return Ok(_repository.GetById(id));
         }
         [HttpPost]
         public IActionResult InsertLibro([FromBody] Libro request)
         {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere Authenticacion");
+            }
             Libro libro = new Libro
             {
                 Codigo = request.Codigo,
@@ -34,7 +44,29 @@ namespace ApiLibros.Controllers
         [HttpGet]
         public IActionResult GetLibros()
         {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere Authenticacion");
+            }
             return Ok(_repository.GetLibros());
+        }
+        [HttpPut]
+        public IActionResult UpdateLibro([FromQuery] int id, [FromBody] LibroCarrito request)
+        {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere Authenticacion");
+            }
+            return Ok(_repository.UpdateLibroCarrito(id, request));
+        }
+        [HttpDelete]
+        public IActionResult DeleteLibro([FromQuery] int id)
+        {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere Authenticacion");
+            }
+            return Ok(_repository.DeleteLibroCarrito(id));
         }
     }
 }

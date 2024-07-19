@@ -53,5 +53,91 @@ namespace ApiLibros.Repositories
         {
             return _context.LibroCarritos.ToList();
         }
+
+        public bool UpdateLibroCaracteristicas(int id, LibroCaracteristica request)
+        {
+            try
+            {
+                if (_context.LibroCaracteristicas.Find(id) == null)
+                {
+                    return false;
+                }
+                request.IdLibroCaracteristicas = id;
+                _context.LibroCaracteristicas.Update(request);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteLibroCaracteristicas(int id)
+        {
+            try
+            {
+                if (_context.LibroCaracteristicas.Find(id) == null)
+                {
+                    return false;
+                }
+                var entity = _context.LibroCaracteristicas.Find(id);
+                _context.LibroCaracteristicas.Remove(entity);
+                _context.SaveChanges();
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public int InsertLibroCarrito(LibroCarrito request)
+        {
+            _context.LibroCarritos.Add(request);
+            _context.SaveChanges();
+            return _context.LibroCarritos
+                .OrderBy(l => l.IdLibroCarrito)
+                .Last()
+                .IdLibroCarrito;
+        }
+
+        public bool UpdateLibroCarrito(int id, LibroCarrito request)
+        {
+            try
+            {
+                if (_context.LibroCarritos.Find(id) == null)
+                {
+                    return false;
+                }
+                request.IdLibroCarrito = id;
+                _context.LibroCarritos.Update(request);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteLibroCarrito(int id)
+        {
+            try
+            {
+                if (_context.LibroCarritos.Find(id) == null)
+                {
+                    return false;
+                }
+                var entity = _context.LibroCarritos.Find(id);
+                _context.LibroCarritos.Remove(entity);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
+        }
     }
 }

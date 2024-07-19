@@ -54,6 +54,11 @@ namespace ApiLibros.Repositories
             return _context.LibroCarritos.ToList();
         }
 
+        public ICollection<LibroCaracteristica> GetLibroCaracteristicas()
+        {
+            return _context.LibroCaracteristicas.ToList();
+        }
+
         public int GetCountLibroByIdLibroCaracteristicas(int id)
         {
             return _context.Libros.Where(l => l.IdLibroCaracteristicas == id).Count();

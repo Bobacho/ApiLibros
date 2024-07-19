@@ -32,8 +32,6 @@ namespace ApiLibros.Models
 
         public virtual DbSet<Usuario> Usuarios { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer("Name=ConnectionStrings:LibrosConnection");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,6 +52,7 @@ namespace ApiLibros.Models
                     .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("FK__Administr__idUsu__267ABA7A");
             });
+
             modelBuilder.Entity<Carrito>(entity =>
             {
                 entity.HasKey(e => e.IdCarrito).HasName("PK__Carrito__7AF85448FE2AE02F");

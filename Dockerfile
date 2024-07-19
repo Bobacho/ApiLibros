@@ -1,4 +1,4 @@
-FROM ubuntu/dotnet-aspnet:8.0-24.04_stable
+FROM okteto/dotnetcore:8
 
 RUN mkdir -p /home/app
 

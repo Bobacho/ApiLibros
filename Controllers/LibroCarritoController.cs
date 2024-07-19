@@ -24,6 +24,15 @@ namespace MyApp.Namespace
             }
             return Ok(_repository.GetLibroCarrito());
         }
+        [HttpPost]
+        public IActionResult InsertLibroCarrito(LibroCarrito request)
+        {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere Authenticacion");
+            }
+            return Ok(_repository.InsertLibroCarrito(request));
+        }
         [HttpPut]
         public IActionResult UpdateLibroCarrito(int id, LibroCarrito request)
         {

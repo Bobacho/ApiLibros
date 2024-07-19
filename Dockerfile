@@ -8,11 +8,6 @@ WORKDIR /home/app
 
 RUN dotnet restore
 
-RUN dotnet publish -c Release -o out
+EXPOSE 5184
 
-EXPOSE 5000
-
-USER root
-RUN chmod +x /opt/bitnami/dotnet-sdk/bin/dotnet
-
-ENTRYPOINT ["dotnet", "out/ApiLibros.dll"]
+CMD ["dotnet","run","environment=Production"]

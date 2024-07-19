@@ -20,15 +20,18 @@ namespace ApiLibros.Controllers
         [HttpGet("/Api/LibroCaracteristicas/search-autor")]
         public IActionResult GetLibroCaracteristicasByAutor([FromQuery] string autor)
         {
-            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Unauthorized("Requiere Authenticacion");
-            }
             var result = _repository.GetLibroCaracteristicaByAutor(autor);
             if (result == null)
             {
                 return NoContent();
             }
+            return Ok(result);
+        }
+
+        [HttpGet("/Api/LibroCaracteristiacs/count")]
+        public IActionResult GetLibroCountByIdCaracteristicas([FromQuery] int id)
+        {
+            var result = _repository.GetCountLibroByIdLibroCaracteristicas(id);
             return Ok(result);
         }
 

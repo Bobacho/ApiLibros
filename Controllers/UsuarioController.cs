@@ -18,11 +18,12 @@ namespace MyApp.Namespace
     {
         private readonly UsuarioRepository _repository;
         private readonly IConfiguration _configuration;
-
-        public UsuarioController(UsuarioRepository repository, IConfiguration configuration)
+        private readonly IHttpContextAccessor _contextAccesor;
+        public UsuarioController(IHttpContextAccessor contextAccesor, UsuarioRepository repository, IConfiguration configuration)
         {
             _repository = repository;
             _configuration = configuration;
+            _contextAccesor = contextAccesor;
         }
 
         private IActionResult GenerateToken(Usuario request, int idUsuario)
@@ -50,7 +51,15 @@ namespace MyApp.Namespace
                 {"id" , idUsuario}
             });
         }
-
+        [HttpGet("/Api/Usuario")]
+        public IActionResult GetUsuarioId([FromQuery] int id)
+        {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere authenticacion");
+            }
+            return Ok(_repository.GetUsuarioById(id));
+        }
         [HttpPost("/Api/Auth/register")]
         public IActionResult Register([FromBody] Usuario request)
         {

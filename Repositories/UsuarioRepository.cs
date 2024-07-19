@@ -22,6 +22,11 @@ namespace ApiLibros.Repositories
                 .Last().IdUsuario;
         }
 
+        public Usuario GetUsuarioById(int id)
+        {
+            return _context.Usuarios.Find(id);
+        }
+
         public bool ExistUsuarioByUserNameAndPassword(string username, string password)
         {
             return _context.Usuarios.Where(u => u.NombreUsuario == username && u.Contrasena == password).Count() > 0;

@@ -1,0 +1,16 @@
+FROM bitnami/dotnet-sdk:8.0.303
+
+RUN mkdir -p /home/app
+
+COPY . /home/app
+
+WORKDIR /home/app
+
+RUN dotnet restore
+
+RUN dotnet publish -c Release -o out
+
+EXPOSE 5000
+
+ENTRYPOINT ["dotnet", "out/ApiLibros.dll"]
+

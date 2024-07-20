@@ -53,13 +53,13 @@ namespace ApiLibros.Controllers
             return Ok(_repository.GetLibros());
         }
         [HttpPut]
-        public IActionResult UpdateLibro([FromQuery] int id, [FromBody] LibroCarrito request)
+        public IActionResult UpdateLibro([FromQuery] int id, [FromBody] Libro request)
         {
             if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
             {
                 return Unauthorized("Requiere Authenticacion");
             }
-            return Ok(_repository.UpdateLibroCarrito(id, request));
+            return Ok(_repository.UpdateLibro(id, request));
         }
         [HttpDelete]
         public IActionResult DeleteLibro([FromQuery] int id)
@@ -68,7 +68,7 @@ namespace ApiLibros.Controllers
             {
                 return Unauthorized("Requiere Authenticacion");
             }
-            return Ok(_repository.DeleteLibroCarrito(id));
+            return Ok(_repository.DeleteLibro(id));
         }
     }
 }

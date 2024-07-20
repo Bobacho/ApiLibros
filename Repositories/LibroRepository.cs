@@ -32,6 +32,48 @@ namespace ApiLibros.Repositories
                 .Last().IdLibro;
         }
 
+        public bool UpdateLibro(int id, Libro request)
+        {
+            try
+            {
+                if (_context.Libros.Find(id) == null)
+                {
+                    Console.WriteLine("Entidad no encontrada");
+                    return false;
+                }
+                request.IdLibro = id;
+                _context.Libros.Update(request);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+        }
+
+        public bool DeleteLibro(int id)
+        {
+            try
+            {
+                var result = _context.Libros.Find(id);
+                if (result == null)
+                {
+                    Console.WriteLine("Entidad no encontrada");
+                    return false;
+                }
+                _context.Libros.Remove(result);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+        }
+
         public int InsertLibroCaracteristicas(LibroCaracteristica caracteristicas)
         {
             _context.LibroCaracteristicas.Add(caracteristicas);
@@ -70,6 +112,7 @@ namespace ApiLibros.Repositories
             {
                 if (_context.LibroCaracteristicas.Find(id) == null)
                 {
+                    Console.WriteLine("Entidad no encontrada");
                     return false;
                 }
                 request.IdLibroCaracteristicas = id;
@@ -79,6 +122,7 @@ namespace ApiLibros.Repositories
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 return false;
             }
         }
@@ -89,15 +133,17 @@ namespace ApiLibros.Repositories
             {
                 if (_context.LibroCaracteristicas.Find(id) == null)
                 {
+                    Console.WriteLine("Entidad no encontrada");
                     return false;
                 }
                 var entity = _context.LibroCaracteristicas.Find(id);
                 _context.LibroCaracteristicas.Remove(entity);
                 _context.SaveChanges();
-                return false;
+                return true;
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 return false;
             }
         }

@@ -31,7 +31,7 @@ namespace ApiLibros.Controllers
             var result = _repository.GetAdministradorById(id);
             if (result == null)
             {
-                return NoContent(result);
+                return NotFound(result);
             }
             return Ok(result);
         }

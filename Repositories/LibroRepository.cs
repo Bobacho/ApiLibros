@@ -1,5 +1,6 @@
 using System.Linq;
 using ApiLibros.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiLibros.Repositories
 {
@@ -36,11 +37,15 @@ namespace ApiLibros.Repositories
         {
             try
             {
-                if (_context.Libros.Find(id) == null)
+                var existingEntity = _context.Libros.Find(id);
+                if (existingEntity == null)
                 {
                     Console.WriteLine("Entidad no encontrada");
                     return false;
                 }
+
+                // Detach the existing entity
+                _context.Entry(existingEntity).State = EntityState.Detached;
                 request.IdLibro = id;
                 _context.Libros.Update(request);
                 _context.SaveChanges();
@@ -110,11 +115,13 @@ namespace ApiLibros.Repositories
         {
             try
             {
-                if (_context.LibroCaracteristicas.Find(id) == null)
+                var existingEntity = _context.LibroCaracteristicas.Find(id);
+                if (existingEntity == null)
                 {
                     Console.WriteLine("Entidad no encontrada");
                     return false;
                 }
+                _context.Entry(existingEntity).State = EntityState.Detached;
                 request.IdLibroCaracteristicas = id;
                 _context.LibroCaracteristicas.Update(request);
                 _context.SaveChanges();
@@ -162,10 +169,12 @@ namespace ApiLibros.Repositories
         {
             try
             {
-                if (_context.LibroCarritos.Find(id) == null)
+                var existingEntity = _context.LibroCarritos.Find(id);
+                if (existingEntity == null)
                 {
                     return false;
                 }
+                _context.Entry(existingEntity).State = EntityState.Detached;
                 request.IdLibroCarrito = id;
                 _context.LibroCarritos.Update(request);
                 _context.SaveChanges();

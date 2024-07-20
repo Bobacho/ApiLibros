@@ -1,5 +1,5 @@
 using ApiLibros.Models;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiLibros.Repositories
 {
@@ -35,10 +35,12 @@ namespace ApiLibros.Repositories
         {
             try
             {
-                if (_context.Clientes.Find(id) == null)
+                var existingEntity = _context.Clientes.Find(id);
+                if (existingEntity == null)
                 {
                     return false;
                 }
+                _context.Entry(existingEntity).State = EntityState.Detached;
                 request.IdCliente = id;
                 _context.Clientes.Update(request);
                 _context.SaveChanges();

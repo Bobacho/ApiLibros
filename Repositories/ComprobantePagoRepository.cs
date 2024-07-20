@@ -1,4 +1,5 @@
 using ApiLibros.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiLibros.Repositories
 {
@@ -39,10 +40,12 @@ namespace ApiLibros.Repositories
         {
             try
             {
-                if (_context.ComprobantePagos.Find(id) == null)
+                var existingEntity = _context.ComprobantePagos.Find(id);
+                if (existingEntity == null)
                 {
                     return false;
                 }
+                _context.Entry(existingEntity).State = EntityState.Detached;
                 request.IdComprobante = id;
                 _context.ComprobantePagos.Update(request);
                 _context.SaveChanges();

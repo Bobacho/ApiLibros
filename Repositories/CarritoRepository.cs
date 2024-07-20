@@ -1,4 +1,5 @@
 using ApiLibros.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiLibros.Repositories
 {
@@ -36,10 +37,12 @@ namespace ApiLibros.Repositories
         {
             try
             {
-                if (_context.Carritos.Find(id) == null)
+                var existingEntity = _context.Carritos.Find(id);
+                if (existingEntity == null)
                 {
                     return false;
                 }
+                _context.Entry(existingEntity).State = EntityState.Detached;
                 request.IdCarrito = id;
                 _context.Carritos.Update(request);
                 _context.SaveChanges();

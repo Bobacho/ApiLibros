@@ -34,7 +34,7 @@ namespace ApiLibros.Controllers
         {
             return Ok(_repository.GetLibroCaracteristicas());
         }
-        [HttpGet("/Api/LibroCaracteristiacs/count")]
+        [HttpGet("/Api/LibroCaracteristicas/count")]
         public IActionResult GetLibroCountByIdCaracteristicas([FromQuery] int id)
         {
             var result = _repository.GetCountLibroByIdLibroCaracteristicas(id);

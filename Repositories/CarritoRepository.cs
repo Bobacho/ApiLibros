@@ -18,7 +18,7 @@ namespace ApiLibros.Repositories
             _context.Carritos.Add(request);
             _context.SaveChanges();
             return _context.Carritos
-                .OrderBy(c => c.IdCarrito).First().IdCarrito;
+                .OrderBy(c => c.IdCarrito).Last().IdCarrito;
         }
 
         public ICollection<Carrito> GetCarritos()

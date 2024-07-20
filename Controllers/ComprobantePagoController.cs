@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ApiLibros.Repositories;
 using ApiLibros.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace MyApp.Namespace
 {
+    [EnableCors]
+    [ApiController]
+    [Route("/Api/ComprobantePago")]
     public class ComprobantePagoController : Controller
     {
         private readonly IHttpContextAccessor _contextAccesor;

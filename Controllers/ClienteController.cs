@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ApiLibros.Models;
 using ApiLibros.Repositories;
+using Microsoft.AspNetCore.Cors;
 
 namespace MyApp.Namespace
 {
+    [EnableCors]
     [Route("/Api/Cliente")]
     [ApiController]
     public class ClienteController : Controller

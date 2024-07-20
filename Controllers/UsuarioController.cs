@@ -2,16 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using ApiLibros.Repositories;
 using System.Security.Claims;
 using ApiLibros.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
 
 namespace MyApp.Namespace
 {
+    [EnableCors]
     [Route("/Api/Auth")]
     [ApiController]
     public class UsuarioController : Controller

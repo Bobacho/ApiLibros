@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ApiLibros.Repositories;
 using ApiLibros.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace ApiLibros.Controllers
 {
+    [EnableCors]
     [ApiController]
     [Route("/Api/LibroCaracteristicas")]
     public class LibroCaracteristicasController : Controller

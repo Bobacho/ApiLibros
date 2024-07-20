@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using ApiLibros.Repositories;
 using ApiLibros.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace MyApp.Namespace
 {
+    [EnableCors]
     [Route("/Api/LibroCarrito")]
     [ApiController]
     public class LibroCarritoController : Controller

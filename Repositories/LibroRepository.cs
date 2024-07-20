@@ -111,6 +111,11 @@ namespace ApiLibros.Repositories
             return _context.Libros.Where(l => l.IdLibroCaracteristicas == id).Count();
         }
 
+        public int GetLibroByLibroCaracteristicaId(int id)
+        {
+            return _context.Libros.Where(l => l.IdLibroCaracteristicas == id).Last().IdLibro;
+        }
+
         public bool UpdateLibroCaracteristicas(int id, LibroCaracteristica request)
         {
             try

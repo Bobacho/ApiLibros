@@ -28,6 +28,16 @@ namespace ApiLibros.Controllers
             }
             return Ok(_repository.GetById(id));
         }
+
+        [HttpGet("/Api/Libro/search-id-caracteristicas")]
+        public IActionResult GetLibroByCaracteristicasId([FromQuery] int id)
+        {
+            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("Requiere Authenticacion");
+            }
+            return Ok(_repository.GetLibroByLibroCaracteristicaId(id));
+        }
         [HttpPost]
         public IActionResult InsertLibro([FromBody] Libro request)
         {

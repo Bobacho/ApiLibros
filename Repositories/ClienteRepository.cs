@@ -18,6 +18,11 @@ namespace ApiLibros.Repositories
             return _context.Clientes.OrderBy(c => c.IdCliente).Last().IdCliente;
         }
 
+        public Cliente GetClienteByUsuarioId(int id)
+        {
+            return _context.Clientes.Where(c => c.IdUsuario == id).First();
+        }
+
         public ICollection<Cliente> GetClientes()
         {
             return _context.Clientes.ToList();

@@ -18,6 +18,12 @@ namespace MyApp.Namespace
             _contextAccesor = contextAccesor;
         }
 
+        [HttpGet("/Api/Cliente/search-by-user-id")]
+        public IActionResult GetClienteByUserId([FromQuery] int id)
+        {
+            return Ok(_repository.GetClienteByUsuarioId(id));
+        }
+
         [HttpGet]
         public IActionResult GetClientes()
         {
@@ -41,10 +47,6 @@ namespace MyApp.Namespace
         [HttpPost]
         public IActionResult InsertCliente([FromBody] Cliente request)
         {
-            if (!_contextAccesor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Unauthorized("Requiere authenticacion");
-            }
             return Ok(_repository.InsertCliente(request));
         }
 
